@@ -1,0 +1,7 @@
+*.git
+*.ipynb_checkpoints
+*.__pycache__
+*resnet50_imagenet_tf.2.0.h5
+*resnet50_coco_best_v2.1.0.h5
+*Errors
+*imageai
