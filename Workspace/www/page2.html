@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="eel.js"></script>
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Krona+One:100,200,300,400" rel="stylesheet">
+    </head>
+    <body>
+
+            <div class="center" style="padding-top: 64px;">
+                <div>
+                    <!-- Title & Instructions -->
+                    <h1 class="h1" id="Title">Great!</h1>
+                    <p class="body1" id="Text">I saw some items in the box beside me.
+                        <br>Would you show me one?
+                        <br><br>Just pull the door open, place it in my belly and close the door again!
+                    </p>
+                    <!-- Live Video Stream -->
+                     <div id="cameraContainer">
+                        <video autoplay="true" id="videoElement">
+                        </video>
+                    <!-- Capture Image from Video -->
+                            <button id="done" class="button" style="width: 200px; margin-top: 32px;">Done</button>   
+                    </div>
+                    
+                    <!-- Canvas & Labels for Labeling after Image was captured (not visible until Image is captured) -->
+                    <canvas hidden id="canvas1"></canvas>
+                    <canvas hidden id="canvas2"></canvas>
+                    
+                    <div hidden class="itemrow" id="labelRow">
+                        <div class="itemblock">
+                            <button id="label1" class="button"style="width: 200px; margin-top: 24px; ">Flower</button>
+                        </div>
+                        <div class="itemblock">
+                            <button id="label2" class="button"style="width: 200px; margin-top: 24px;">Cable</button>
+                        </div>
+                        <div class="itemblock">
+                            <button id="label3" class="button"style="width: 200px; margin-top: 24px; ">Book</button>
+                        </div>
+                    </div>
+
+
+
+                </div> 
+            </div>
+
+        <script>
+
+            // Start Video Stream
+            var video = document.querySelector("#videoElement");
+    
+            if (navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    video.srcObject = stream;
+                })
+                .catch(function (err0r) {
+                    console.log("Something went wrong!");
+                });
+            }
+
+            let canvas = document.querySelector("#canvas1");
+            let click_button = document.querySelector("#done");
+
+            // Get 2D capture of Video (as imgae)
+            click_button.addEventListener('click', function() {
+                canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+                let image_data_url = canvas.toDataURL('image/jpg', 1);
+                
+                // Save image from URL
+                eel.saveImage(image_data_url, 1.1, "image1.jpg");
+
+   
+                // Set Image as Canvas Cotent to show user Capture
+                // TODO: Bigger resolution!
+                document.getElementById("canvas1").src=image_data_url;
+
+                // TODO: eel.showImageCapture(image_data_url);
+                // console.log("image should be sent to python")
+
+                // Reset content of document - show Labels and Image Captured
+                document.getElementById("videoElement").srcObject = null;
+                document.getElementById("cameraContainer").remove();
+                document.getElementById("canvas1").hidden = false;
+
+                document.getElementById("Title").innerHTML = "Interesting..",
+                document.getElementById("Text").innerHTML = "It looks a lot like something I've seen before.. <br> What is it? <br> <br>"
+                document.getElementById("labelRow").hidden = false;
+
+            });
+
+            //log User Interactions
+            // Button "Done" clicked
+            var b1 = document.getElementById("done");
+            b1.addEventListener('click', function(){
+                msg = "'Done' - Object should be placed in body, door closed and Image captured";
+                console.log(msg);
+                logInfo(msg);
+                });
+
+            // Button "label1" clicked
+            var b1 = document.getElementById("label1");
+            b1.addEventListener('click', function(){
+                msg = "'Flower' - User Labeled Object";
+                console.log(msg);
+                logInfo(msg);
+                //location.href = "page3.html";
+                set_images();
+                console.log("images set");
+                hide_buttons();
+                });
+
+            // Button "label2" clicked               
+            var b1 = document.getElementById("label2");
+            b1.addEventListener('click', function(){
+                msg = "'Cable' - User Labeled Object";
+                console.log(msg);
+                logInfo(msg);
+                //location.href = "page3.html";
+                set_images();
+                console.log("images set");
+                hide_buttons();
+                });
+
+            // Button "label3" clicked
+            var b1 = document.getElementById("label3");
+            b1.addEventListener('click', function(){
+                msg = "'Book' - User Labeled Object";
+                console.log(msg);
+                logInfo(msg);
+                //location.href = "page3.html";
+                set_images();
+                console.log("images set");
+                hide_buttons();
+                });
+
+            // Call Python Function, log clicked Element
+            function logInfo(msg){
+                eel.logInfo(msg);
+            }
+
+            
+            function set_images(){
+                y = eel.get_name_from_detected()(processReturn);
+            }
+            eel.expose(set_images);
+
+            function processReturn(result){
+                document.getElementById("Text").innerHTML = "It kind of looks a lot like this.."
+                document.getElementById("canvas2").hidden = false;
+                console.log("return value: " + result)
+                console.log("LOG: page 2 received detected obj name: " + result);
+                if (result == "cable"){
+                    document.getElementById('canvas2').src="Cable.jpg";
+                } else if (result == "car"){
+                    document.getElementById('canvas2').src="Car.jpg";
+                } else {
+                    console.log("LOG: Found new unnkown detection");
+                    console.log("TODO: Catch case of new detection without twin item in interaction");
+                }
+            }
+
+            // hide buttons & show second canvas
+            function hide_buttons(){
+                document.getElementById("labelRow").hidden = true;
+                document.getElementById("canvas2").hidden = false;
+            }
+       
+
+        </script>
+
+
+
+
+    </body>
+
+</html>
