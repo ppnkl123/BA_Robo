@@ -1,0 +1,7 @@
+time,start,action,subtext here
+Button pressed: Start,Starting interaction,-
+Button pressed: Done (1),Image 1 captured,-
+Button pressed: Object Label,Scissors,User Labelled Object in Image as Scissors
+Button pressed: Done (2),Image 2 captured,-
+Button pressed: Property,None,Characteristic user thinks system will struggle with
+Button pressed: Restart,Interaction finished,-

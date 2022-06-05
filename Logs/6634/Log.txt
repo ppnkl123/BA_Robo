@@ -1,0 +1,3 @@
+time,start,action,subtext here
+Button pressed: Start,Starting interaction,-
+Button pressed: Done (1),Image 1 captured,-

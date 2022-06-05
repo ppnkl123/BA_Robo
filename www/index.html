@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="/eel.js"></script>
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Krona+One:100,200,300,400" rel="stylesheet">
+
+    </head>
+
+    <body>
+
+        <div>
+            <div class="center" style="margin-top: 40px;" >
+                <div>
+                    <!-- Title & Introduction -->
+                    <h1 class="h1" style="padding-top: 20px;">Hey!</h1>
+                    <p class="body1">I was taught to recognize objects.<br>These are 3 I already know.</p>  
+
+                    <!-- 3 Items - already known to the "robo" -->
+                    <div class="itemrow">
+                        <div class="itemblock">
+                            <h2 class="label" >Tongs</h2>
+                            <img src="tongs.png" class="known_objects" alt="tongs" id="img">
+                        </div>
+                        <div class="itemblock">
+                            <h2 class="label">Car</h2>
+                            <img src="car.png" class="known_objects" alt="car" id="img">
+                        </div>
+                        <div class="itemblock">
+                            <h2 class="label">Photograph</h2>
+                            <img src="photograph.png" class="known_objects" alt="photograph" id="img">
+                        </div>
+                    </div>
+
+                    <!-- CTA -->
+                    <p class="body1">Would you teach me some more?</p>
+                    <!-- Linking to next page -->
+                    <button class="button" id = "b1">Start</button>
+
+                </div> 
+            </div>
+            <!-- TODO: Button - should open fullscreen once.. ideally automatically -->
+        </div>
+
+        <!-- log User Interactions -->
+        <script>
+
+            var b1 = document.getElementById("b1");
+            b1.addEventListener('click', function(){
+                eel.write_csv("Button pressed: Start", "Starting interaction", "-");
+                location.href='page2.html';
+                });
+
+        </script>
+
+    </body>
+</html>
