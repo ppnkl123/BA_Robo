@@ -37,8 +37,8 @@ userIdS = str(new_id)
 
 # Create User Directory
 
-os.makedirs(os.path.join('D:\BARobo\Tyr 8.0 IR\Workspace\Logs',  userIdS))
-userFilePath = os.path.join('D:\BARobo\Tyr 8.0 IR\Workspace\Logs',  userIdS)
+os.makedirs(os.path.join(os.getcwd(), '\Logs',  userIdS))
+userFilePath = os.path.join(os.getcwd(), '\Logs',  userIdS)
 logFilePath = os.path.join(userFilePath, "Log.txt")
 print("File Path: " + userFilePath) #TODO delete when done testing
 print("File Path: " + logFilePath) #TODO delete when done testing
