@@ -34,11 +34,11 @@ class User:
         self.end_time = x
         
     # get user id
-    def get_image(self, key):
+    def get_image_info(self, key):
         return self.images[key]
 
     # set user id
-    def set_image(self, key, x):
+    def set_image_info(self, key, x):
         self.images[key] = x
         
     # get user id

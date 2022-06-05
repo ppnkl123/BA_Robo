@@ -4,22 +4,7 @@
         <script src="/eel.js"></script>
         <link rel="stylesheet" href="styles.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Krona+One:100,200,300,400" rel="stylesheet">,
-        <script>
-            var elem = document.documentElement;
-
-            /* Fullscreen View*/
-
-            function openFullscreen() {
-                if (elem.requestFullscreen) {
-                    elem.requestFullscreen();
-                } else if (elem.webkitRequestFullscreen) { /* Safari */
-                    elem.webkitRequestFullscreen();
-                } else if (elem.msRequestFullscreen) { /* IE11 */
-                    elem.msRequestFullscreen();
-                }
-                }
-        </script>
+        <link href="https://fonts.googleapis.com/css?family=Krona+One:100,200,300,400" rel="stylesheet">
 
     </head>
 
@@ -35,28 +20,27 @@
                     <!-- 3 Items - already known to the "robo" -->
                     <div class="itemrow">
                         <div class="itemblock">
-                            <h2 class="label" >Snake</h2>
-                            <img src="Item1.png" alt="Snake" id="img">
+                            <h2 class="label" >Tongs</h2>
+                            <img src="tongs.png" class="known_objects" alt="tongs" id="img">
+                        </div>
+                        <div class="itemblock">
+                            <h2 class="label">Car</h2>
+                            <img src="car.png" class="known_objects" alt="car" id="img">
                         </div>
                         <div class="itemblock">
                             <h2 class="label">Photograph</h2>
-                            <img src="Item3.png" alt="Photograph" id="img">
-                        </div>
-                        <div class="itemblock">
-                            <h2 class="label">Ball</h2>
-                            <img src="Item2.png" alt="Ball" id="img">
+                            <img src="photograph.png" class="known_objects" alt="photograph" id="img">
                         </div>
                     </div>
 
                     <!-- CTA -->
                     <p class="body1">Would you teach me some more?</p>
                     <!-- Linking to next page -->
-                    <button class="button" id = "b1" onclick="location.href='page2.html';">Start</button>
+                    <button class="button" id = "b1">Start</button>
 
                 </div> 
             </div>
-            <!-- TODO: Button - should open fullscreen once.. ideally automatically 
-            <button onclick= "openFullscreen()">fullscreen</button> -->
+            <!-- TODO: Button - should open fullscreen once.. ideally automatically -->
         </div>
 
         <!-- log User Interactions -->
@@ -64,15 +48,10 @@
 
             var b1 = document.getElementById("b1");
             b1.addEventListener('click', function(){
-                msg = "'Start' Interaction - 1.0";
-                console.log(msg);
-                logInfo(msg);
+                eel.write_csv("Button pressed: Start", "Starting interaction", "-");
+                location.href='page2.html';
                 });
 
-        // Call Python Function, log clicked Element
-            function logInfo(msg){
-                eel.logInfo(msg);
-            }
         </script>
 
     </body>

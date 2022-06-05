@@ -5,31 +5,6 @@
         <link rel="stylesheet" href="styles.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Krona+One:100,200,300,400" rel="stylesheet">
-        
-        <script>
-            function set_image_from_detected(){
-                y = eel.get_name_from_detected();
-                console.log("LOG: page 3 received detected obj name: " + y);
-                if (x = "cable"){
-                    document.getElementById('Twin').src="Cable.jpg";
-                } else if (y = "car"){
-                    document.getElementById('Twin').src="Car.jpg";
-                } else {
-                    console.log("LOG: Found new unnkown detection");
-                    console.log("TODO: Catch case of new detection without twin item in interaction");
-                }
-            }
-            eel.expose(set_image_from_detected);
-        </script>
-
-        <script>
-            function set_capture_next_page(){
-                y = eel.get_image_capture();
-                document.getElementById('Capture').src=x;
-                console.log("LOG: Captured image visible");
-            }
-            eel.expose(set_capture_next_page);
-        </script>
     
     </head>
     <body>
@@ -39,25 +14,46 @@
                 <div>
                     <h1 class="h1"> Have I seen this before?
                         <br> It looks a lot like this </h1>
-                    <div class="itemrow" style="padding-top: 40px;">
+                    <!-- TODO: last section and feedback question -->
+                    <div hidden class="itemrow" id="feedback_images">
                         <div class="itemblock">
-                            <h2 class="label"> New Item </h2>
-                            <img src="" alt="Capture" id="img">
+                            <button class="button"style="width: 200px; margin-top: 24px;" onclick="update_end('Shape')">Shape</button>
                         </div>
                         <div class="itemblock">
-                            <h2 class="label" > Old Item </h2>
-                            <img src="" alt="Twin" id="img">
+                            <button class="button"style="width: 200px; margin-top: 24px;" onclick="update_end('Color')">Color</button>
+                        </div>
+                        <div class="itemblock">
+                            <button class="button"style="width: 200px; margin-top: 24px;" onclick="update_end('Pattern')">Pattern</button>
+                        </div>
+                        <div class="itemblock">
+                            <button class="button"style="width: 200px; margin-top: 24px;" onclick="update_end('Perspective')">Perspective</button>
                         </div>
                     </div>
-                    <p class="body1" id="Text"> Could you help me figure out the difference between the two?
-                        <br> Mabe if I could look at it from another direction?
-                    </p>
-                    <button class="button" id = "b1" style="width: 300px;" onclick="location.href='page4.html';"> Show again </button>
+                    
+                    <div hidden class="itemrow" id="feedback_images"></div>
+                        <div class="itemblock">
+                            <button class="button"style="width: 200px; margin-top: 24px;" onclick="update_end('Shape')">Shape</button>
+                        </div>
+                        <div class="itemblock">
+                            <button class="button"style="width: 200px; margin-top: 24px;" onclick="update_end('None')">None</button>
+                        </div>
+                        <div class="itemblock">
+                            <button class="button"style="width: 200px; margin-top: 24px;" onclick="update_end('All')">All</button>
+                        </div>
+                    </div>
 
 
                 </div> 
             </div>
         </div>
+
+        <script>
+            // TODO: last section -> restart screen elements, maybe new page?
+            function update_end(feedback_text){
+                //open next page
+                eel.write_csv("Characteristic user thinks machine will struggle with", feedback_text, "-");
+            }
+        </script>
 
     </body>
 

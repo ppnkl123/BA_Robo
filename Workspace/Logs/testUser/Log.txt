@@ -1,6 +1,2 @@
-17-May-2022 (10:15:59.000418),logged file,testing if logging works,subtext here
-
-17-May-2022 (10:15:59.008563) - Running - 7815
-17-May-2022 (10:17:34.974386) - 'Start' Interaction - 1.0
-17-May-2022 (10:20:23.916377) - 'Done' - Object should be placed in body, door closed and Image captured
-17-May-2022 (10:20:53.474410) - 'Flower' - User Labeled Object
+time,start,action,subtext here
+Button pressed: Start,Starting interaction,-
