@@ -174,7 +174,7 @@ def detectFromImage():
 
 # Save Image capture
 @eel.expose
-def saveImage(img, key, fileName):
+def saveImage(img, key, fileName, detect_bool):
     print("\n saveImage called")
     print("\n img: " + img)
     print("\n key: " + str(key))
@@ -191,7 +191,10 @@ def saveImage(img, key, fileName):
     print("\n State: \n")
     user.print_instance()
     # Run image detection
-    detectFromImage()
+    if detect_bool == "True":
+        detectFromImage()
+    else:
+        print("second image captured, no detection done")
     
 
     

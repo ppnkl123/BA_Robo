@@ -174,7 +174,7 @@
                 console.log("Buffer playing");
 
                 // set image capture
-                eel.saveImage(image_data_url, 1, "Image1.jpg");
+                eel.saveImage(image_data_url, 1, "Image1.jpg", "True");
             });
 
 
@@ -298,7 +298,7 @@
                 doc_text.remove();
                 title2.style.display = "block";
                 hide_feedback_images(false);
-                eel.saveImage(image_data_url, 2, "Image2.jpg");
+                eel.saveImage(image_data_url, 2, "Image2.jpg", "False");
             });
 
             function set_page_content_to_3(){
