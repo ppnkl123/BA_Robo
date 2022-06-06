@@ -310,7 +310,7 @@
 
             // show or hide elements
             function hide_label_buttons(){
-                labelRow.hidden = true;
+                labelRow.hidden= false;
             }
             function show_label_buttons(){
                 labelRow.hidden = false;
@@ -402,6 +402,7 @@
                 doc_text.hidden = true;
                 title2.innerHTML = "";
                 hide_images();
+                hide_label_buttons();
                 hide_feedback_images(true);
                 document.getElementById("property_buttons").hidden = false;
             });
@@ -411,6 +412,7 @@
                 doc_text.hidden = true;
                 title2.innerHTML = "";
                 hide_images();
+                hide_label_buttons();
                 hide_feedback_images(true);
                 document.getElementById("property_buttons").hidden = false;
             });
@@ -420,6 +422,7 @@
                 doc_text.hidden = true;
                 title2.innerHTML = "";
                 hide_images();
+                hide_label_buttons();
                 hide_feedback_images(true);
                 document.getElementById("property_buttons").hidden = false;
             });
