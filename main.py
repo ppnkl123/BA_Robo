@@ -196,4 +196,4 @@ def saveImage(img, key, fileName):
 
     
 eel.init("www")
-eel.start("index.html", size=(1296, 916))
+eel.start("index.html", mode=None, host="0.0.0.0", port=7001,shutdown_delay=100)
