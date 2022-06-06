@@ -1,11 +1,12 @@
 class User:
       
-    def __init__(self, user_id, start_time, end_time, images, file_path, detected_object):
+    def __init__(self, user_id, start_time, end_time, images, file_path, log_file_path, detected_object):
         self.user_id = user_id
         self.start_time = start_time
         self.end_time = end_time
         self. images = {1.1: None, 1.2: None, 2.1: None, 2.2: None}
         self.file_path = file_path
+        self.log_file_path = log_file_path
         self.detected_object = {'name': None, 'probability': None}
 
 
@@ -48,6 +49,14 @@ class User:
     # set user id
     def set_file_path(self, x):
         self.file_path = x
+        
+     # get user id
+    def get_log_file_path(self):
+        return self.log_file_path
+
+    # set user id
+    def set_log_file_path(self, x):
+        self.log_file_path = x
     
     # get detected object
     def get_detected_object(self, key):
@@ -65,5 +74,6 @@ class User:
         print("End Time: ", self.end_time)
         print("Image Files: ", self.images)
         print("User File Path: ", self.file_path)
+        print("Log File Path: ", self.log_file_path)
         print("Object: ", self.detected_object['name'], "Probability: ", self.detected_object['probability'])
         

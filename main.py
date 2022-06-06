@@ -25,7 +25,8 @@ os.add_dll_directory("C:\Windows\System32")
 
 user = User(None, None, None, None, None, None, None)
 print("os file path:  " + os.getcwd())
-
+logFolderPath = os.path.join(os.getcwd(), 'Logs')
+print("log folderpath:  " + logFolderPath)
 
 @eel.expose
 def start():
@@ -34,8 +35,6 @@ def start():
     new_id = random.randint(0, 20000)
     userIdS = str(new_id)
     # Create paths
-    logFolderPath = os.path.join(os.getcwd(), 'Logs')
-    print("log folderpath:  " + logFolderPath)
     os.makedirs(os.path.join(logFolderPath, userIdS))
     userFilePath = os.path.join(logFolderPath, userIdS)
     print("user file path:  " + userFilePath)
