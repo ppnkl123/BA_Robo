@@ -21,8 +21,6 @@ from UserData import User
 from CsvManager import csvFile
 from csv import writer
 
-os.add_dll_directory("C:\Windows\System32")
-
 user = User(None, None, None, None, None, None, None)
 print("os file path:  " + os.getcwd())
 logFolderPath = os.path.join(os.getcwd(), 'Logs')
