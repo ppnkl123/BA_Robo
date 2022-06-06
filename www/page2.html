@@ -292,7 +292,7 @@
                 image1.src = image_data_url;
 
                 // set image capture
-                eel.saveImage(image_data_url, 2, "Image2.jpg", false);
+                eel.saveImage(image_data_url, 2, "Image2.jpg");
                 show_images();
                 eel.write_csv("Button pressed: Done (2)", "Image 2 captured","-");
                 doc_title.innerHTML = "I think I got it now!";
@@ -437,11 +437,12 @@
 
             restart.addEventListener('click', function(){
                 eel.write_csv("Button pressed: Restart", "Interaction finished", "-");
-                eel.restart_application();
                 loading_buffer.hidden = false;
                 restart.hidden = true;
                 doc_text.hidden = true;
-                doc_title.innerHTML = "I'm getting ready to go again!"
+                doc_title.innerHTML = "I'm getting ready to go again!";
+                document.location.href = "index.html";
+                eel.start();
             });
 
 
