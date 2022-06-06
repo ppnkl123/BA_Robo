@@ -292,13 +292,13 @@
                 image1.src = image_data_url;
 
                 // set image capture
-                eel.saveImage(image_data_url, 2, "Image2.jpg");
                 show_images();
                 eel.write_csv("Button pressed: Done (2)", "Image 2 captured","-");
                 doc_title.innerHTML = "I think I got it now!";
                 doc_text.remove();
                 title2.style.display = "block";
                 hide_feedback_images(false);
+                eel.saveImage(image_data_url, 2, "Image2.jpg");
             });
 
             function set_page_content_to_3(){
