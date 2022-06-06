@@ -21,6 +21,44 @@ from UserData import User
 from CsvManager import csvFile
 from csv import writer
 
+os.add_dll_directory("C:\Windows\System32")
+
+user = User(None, None, None, None, None, None, None)
+print("os file path:  " + os.getcwd())
+
+
+@eel.expose
+def start():
+    print("Starting application")
+    # Create random id
+    new_id = random.randint(0, 20000)
+    userIdS = str(new_id)
+    # Create paths
+    logFolderPath = os.path.join(os.getcwd(), 'Logs')
+    print("log folderpath:  " + logFolderPath)
+    os.makedirs(os.path.join(logFolderPath, userIdS))
+    userFilePath = os.path.join(logFolderPath, userIdS)
+    print("user file path:  " + userFilePath)
+    logFilePath = os.path.join(userFilePath, 'Log.txt')
+    print("log file path:  " + logFilePath)
+    # Set user data
+    user.set_user_id(userIdS)
+    user.set_start_time(datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)"))
+    user.set_file_path(userFilePath)
+    user.set_log_file_path(logFilePath)
+    user.print_instance()
+
+    # Create csv file
+    csv = csvFile(logFilePath)
+    csv.create()
+    csv.print_instance()
+    # Log csv header
+    csv.log(['time',
+            'start',
+            'action',
+            'subtext here'])
+    
+
 # Current Time
 def getDateTimeNowString():
     dtN = datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)")
@@ -31,49 +69,16 @@ def getDateTimeNowString():
 def testOut(x):
     print(x)
 
-# Create random id
-new_id = random.randint(0, 20000)
-userIdS = str(new_id)
 
-# Create User Directory
-
-os.makedirs(os.path.join(os.getcwd(), '\Logs',  userIdS))
-userFilePath = os.path.join(os.getcwd(), '\Logs',  userIdS)
-logFilePath = os.path.join(userFilePath, "Log.txt")
-print("File Path: " + userFilePath) #TODO delete when done testing
-print("File Path: " + logFilePath) #TODO delete when done testing
-print("os File Path: " + os.getcwd())
-
-# Create User
-user = User(new_id, datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)"), None, None, userFilePath, None)
-
-# Print current instance of User Object (TODO: delete after testing)
-print("\n State: \n")
-user.print_instance()
-
-# Create csv file
-csv = csvFile(logFilePath)
-csv.create()
-csv.print_instance()
-# Log csv header
-csv.log(['time',
-        'start',
-        'action',
-        'subtext here'])
 
 # Log into csv
 @eel.expose
 def write_csv(action, msg, subtext):
-    """
-    time = getDateTimeNowString()
-    csv.log([time, action, msg, subtext])
-    # TODO: remove after testing
-    print("\n Writing CSV Content")
-    print([time, action, msg, subtext])
-    """
     list_data = [action, msg, subtext]
+    print("writing csv into:   " + user.get_log_file_path())
     
-    with open(logFilePath, 'a', newline='') as f_object:  
+   
+    with open(user.get_log_file_path(), 'a', newline='') as f_object:  
         # Pass the CSV  file object to the writer() function
         writer_object = writer(f_object)
         # Result - a writer object
@@ -82,7 +87,7 @@ def write_csv(action, msg, subtext):
         # Close the file object
         f_object.close()
         
-    print("Action logged into Log.txt")
+    print("Log.txt logged")
 
 
 
@@ -98,7 +103,7 @@ def logInfo(action, msg):
     f.close()
 """
 
-
+"""
 # Object Detection from Image
 def detectFromImage():
     # TODO: uncomment after testing
@@ -109,7 +114,7 @@ def detectFromImage():
     detector.setModelTypeAsRetinaNet()
     detector.setModelPath( os.path.join(execution_path , "resnet50_coco_best_v2.1.0.h5"))
     detector.loadModel()
-    detections = detector.detectObjectsFromImage(input_image=os.path.join(userFilePath , "Image1.jpg"), output_image_path=os.path.join(execution_path , "Image2.jpg"))
+    detections = detector.detectObjectsFromImage(input_image=os.path.join(user.get_file_path(), "Image1.jpg"), output_image_path=os.path.join(user.get_file_path() , "Image2.jpg"))
 
     for eachObject in detections:
         print(eachObject["name"] , " : " , eachObject["percentage_probability"] )
@@ -133,6 +138,41 @@ def detectFromImage():
         # TODO: delete after testing
         print("\n State: \n")
         user.print_instance()
+"""
+from imageai.Classification import ImageClassification
+# Object Detection from Image
+def detectFromImage():
+
+    execution_path = os.getcwd()
+
+    prediction = ImageClassification()
+    prediction.setModelTypeAsMobileNetV2()
+    prediction.setModelPath(os.path.join(execution_path, "mobilenet_v2.h5"))
+    prediction.loadModel()
+
+    predictions, probabilities = prediction.classifyImage(os.path.join(user.get_file_path(), "Image1.jpg"), result_count=1 )
+    for eachPrediction, eachProbability in zip(predictions, probabilities):
+        print(eachPrediction , " : " , eachProbability)
+        detected_object_name = eachPrediction
+        print(eachPrediction)
+        user.set_detected_object(detected_object_name, "80%")
+
+    x = "None"
+    if detected_object_name == x:
+        print("No object detected.. TODO: handle this!")
+    else:
+        # TODO: Remove print outs
+        print("State: \n")
+        user.print_instance()
+
+        # set twin objects image
+        eel.set_image_from_detected(detected_object_name)
+
+        # TODO: delete after testing
+        print("\n State: \n")
+        user.print_instance()
+        
+        
 
 
 # Save Image capture
@@ -143,7 +183,7 @@ def saveImage(img, key, fileName):
     print("\n key: " + str(key))
     print("\n filename: " + fileName)
    
-    imagePath = os.path.join(userFilePath, fileName)
+    imagePath = os.path.join(user.get_file_path(), fileName)
     imageFile = urllib.request.urlretrieve(img, imagePath)
 
     print("image retrieved from url" + str(imageFile))
@@ -156,13 +196,7 @@ def saveImage(img, key, fileName):
     # Run image detection
     detectFromImage()
     
-    
 
-@eel.expose
-def restart_application():
-    print("Restarting application")
-    os.execl(sys.executable, sys.executable, *sys.argv)
-    quit()
     
 eel.init("www")
 eel.start("index.html", size=(1296, 916))
