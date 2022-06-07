@@ -174,7 +174,7 @@
                 console.log("Buffer playing");
 
                 // set image capture
-                eel.saveImage(image_data_url, 1, "Image1.jpg", "True");
+                eel.saveImage(image_data_url, 1, "Image1.jpg");
             });
 
 
@@ -190,7 +190,7 @@
                 ttl2 = "I don't think I've ever seen this..<br>(TODO: insert other option to handle this, maybe text input)";
 
                 // Reset content of document - show Labels and Image Captured
-                if (detected_object == "scissors"){
+                if (detected_object == "scissors" || detected_object == "hook" || detected_object == "nematode" || detected_object == "chain"){
                     console.log("Detected object: scissors");
                     console.log("Canvas 2 set to tongs image");
                     doc_text.innerHTML = str1;
